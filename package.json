@@ -1,0 +1,21 @@
+{
+  "name": "udemy_course_meantodos",
+  "version": "1.0.0",
+  "description": "Simple todos app that runs on the MEAN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "mongojs": "^2.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gschafra/udemy_course_meantodos.git"
+  }
+}
