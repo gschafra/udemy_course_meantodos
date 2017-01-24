@@ -1,23 +1,24 @@
 {
-  "name": "udemy_course_meantodos",
-  "version": "1.0.0",
-  "description": "Simple todos app that runs on the MEAN stack",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bluebird": "^3.4.7",
-    "body-parser": "^1.16.0",
-    "ejs": "^2.5.5",
-    "express": "^4.14.0",
-    "mongoose": "^4.7.7",
-    "swagger-express": "^1.0.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gschafra/udemy_course_meantodos.git"
-  }
+    "name": "udemy_course_meantodos",
+    "version": "1.0.0",
+    "description": "Simple todos app that runs on the MEAN stack",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bluebird": "^3.4.7",
+        "body-parser": "^1.16.0",
+        "ejs": "^2.5.5",
+        "express": "^4.14.0",
+        "mongoose": "^4.7.7",
+        "swagger-express": "^1.0.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gschafra/udemy_course_meantodos.git"
+    }
 }
