@@ -44,20 +44,22 @@ router.post('/todo', function(req, res, nex) {
             message: error.errors['title'].message
         });
     }
-    todo.save(function(err, todo) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Saving failed.'
-            });
-        }
+    var promise = todo.save().exec();
+    promise.then(function(result) {
+        return res.json(result);
+    }).catch(function(err){
+        return res.status(500).json({
+            message: 'Saving failed.'
+        });
     });
+    
 });
 
 // Update Todo
-router.put('/todo', function(req, res, nex) {
+router.put('/todo/:id', function(req, res, next) {
     var todo = req.body;
 
-    if (!todo.title || !(todo.isCompleted + '')) {
+    if (todo.isCompleted) {
         return res.status(500).json({
             message: 'Invalid data.'
         });
@@ -84,6 +86,25 @@ router.put('/todo', function(req, res, nex) {
         });
         return res.json(todo);
     });
+});
+
+// Get a single Todo
+router.delete('/todo/:id', function(req, res, next) {
+    var promise = Todo.findById(req.params.id).exec();
+    promise.then(function(todo) {
+            todo.remove(function(err, result){
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json(result);
+                }
+            });
+        })
+        .catch(function(err) {
+            return res.status(500).json({
+                message: 'Error getting todo.'
+            });
+        });
 });
 
 module.exports = router;
