@@ -8,6 +8,10 @@ var TodoSchema = new Schema({
         type: String,
         default: '',
         required: [true, 'Todo title required']
+    },
+    isCompleted: {
+        type: Boolean,
+        default: false
     }
 });
 

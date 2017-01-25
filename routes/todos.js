@@ -37,22 +37,21 @@ router.post('/todo', function(req, res, nex) {
             message: 'Invalid data.'
         });
     }
-    todo = new Todo({ title: todo.title });
-    var error = todo.validateSync();
+    var newTodo = new Todo({ title: todo.title, isCompleted: false });
+    var error = newTodo.validateSync();
     if (error) {
         return res.status(500).json({
             message: error.errors['title'].message
         });
     }
-    var promise = todo.save().exec();
-    promise.then(function(result) {
+    newTodo.save().then(function(result) {
         return res.json(result);
-    }).catch(function(err){
+    }).catch(function(err) {
         return res.status(500).json({
             message: 'Saving failed.'
         });
     });
-    
+
 });
 
 // Update Todo
@@ -92,7 +91,7 @@ router.put('/todo/:id', function(req, res, next) {
 router.delete('/todo/:id', function(req, res, next) {
     var promise = Todo.findById(req.params.id).exec();
     promise.then(function(todo) {
-            todo.remove(function(err, result){
+            todo.remove(function(err, result) {
                 if (err) {
                     res.send(err);
                 } else {
