@@ -9,7 +9,7 @@
 <div class="todo-list">
     <div *ngFor="let todo of todos">
         <div class="col-md-1">
-            <input type="checkbox">
+            <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo)">
         </div>
         <div class="col-md-7">
             {{todo.title}}

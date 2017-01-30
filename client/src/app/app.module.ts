@@ -5,7 +5,10 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TodosComponent } from './components/todos/todos.component';
-import { TodoService } from './services/todo.service';
+
+import {Api} from 'premiere';
+
+Api.base = '/api/v1/';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,7 @@ import { TodoService } from './services/todo.service';
     FormsModule,
     HttpModule
   ],
-  providers: [TodoService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

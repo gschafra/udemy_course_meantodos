@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../models/todo';
 
 
@@ -11,28 +10,42 @@ import { Todo } from '../../models/todo';
 export class TodosComponent implements OnInit {
   todos: Todo[];
 
-  constructor(private _todoService: TodoService) { }
+  constructor() { }
 
   ngOnInit() {
     this.todos = [];
-    this._todoService.getTodos().subscribe(todos => {
-      this.todos = todos;
+    Todo.all().then((todos: Todo[]) => {
+      this.todos =  todos;
     })
   }
 
   addTodo(event, todoText){
-    var result;
-    var newTodo = {
-      title: todoText.value,
-      isCompleted: false
-    };
+    let todo = new Todo();
+    todo.title = todoText.value;
+    todo.isCompleted = false;
+    todo.save().then((todo: Todo) => {
+        this.todos.push(todo);
+        todoText.value = '';
+    });
+  }
 
-    result = this._todoService.saveTodo(newTodo);
-    result.subscribe(x => {
-      this.todos.push(newTodo);
-      todoText.value = '';
-    })
+  updateStatus(todo) {
+    console.log(todo);
+    Todo.find(todo._id).then((_todo: Todo) => {
+      console.log(_todo);
+      _todo.isCompleted = true;
+      _todo.save().then((__todo: Todo) => {
+        console.log(__todo);
+      })
+    });
+  }
 
+  setEditState(todo, state){
+    if (state) {
+      todo.isEditMode = state;
+    } else {
+      delete todo.isEditMode;
+    }
   }
 
 }

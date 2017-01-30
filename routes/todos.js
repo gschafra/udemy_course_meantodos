@@ -16,7 +16,7 @@ router.get('/todos', function(req, res, next) {
 });
 
 // Get a single Todo
-router.get('/todo/:id', function(req, res, next) {
+router.get('/todos/:id', function(req, res, next) {
     var promise = Todo.findById(req.params.id).exec();
     promise.then(function(todo) {
             return res.json(todo);
@@ -29,7 +29,7 @@ router.get('/todo/:id', function(req, res, next) {
 });
 
 // Save Todo
-router.post('/todo', function(req, res, nex) {
+router.post('/todos', function(req, res, nex) {
     var todo = req.body;
 
     if (!todo.title || !(todo.isCompleted + '')) {
@@ -55,7 +55,7 @@ router.post('/todo', function(req, res, nex) {
 });
 
 // Update Todo
-router.put('/todo/:id', function(req, res, next) {
+router.put('/todos/:id', function(req, res, next) {
     var todo = req.body;
 
     if (todo.isCompleted) {
@@ -88,7 +88,7 @@ router.put('/todo/:id', function(req, res, next) {
 });
 
 // Get a single Todo
-router.delete('/todo/:id', function(req, res, next) {
+router.delete('/todos/:id', function(req, res, next) {
     var promise = Todo.findById(req.params.id).exec();
     promise.then(function(todo) {
             todo.remove(function(err, result) {
