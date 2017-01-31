@@ -30,14 +30,23 @@ export class TodosComponent implements OnInit {
   }
 
   updateStatus(todo) {
-    console.log(todo);
-    Todo.find(todo._id).then((_todo: Todo) => {
-      console.log(_todo);
-      _todo.isCompleted = true;
-      _todo.save().then((__todo: Todo) => {
-        console.log(__todo);
-      })
-    });
+    todo.isCompleted = !todo.isCompleted;
+    todo.save();
+  }
+  
+  keyDownEdit(todo, event) {
+    if(event.keyCode == 13) {
+      this.toggleEditMode(todo);
+    }
+  }
+  toggleEditMode(todo) {
+    if (todo.isEditMode) {
+      todo.save().then((_todo: Todo) => {
+          todo.isEditMode = !todo.isEditMode;
+      });
+    } else {
+      todo.isEditMode = !todo.isEditMode;
+    }
   }
 
   setEditState(todo, state){

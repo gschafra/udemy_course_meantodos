@@ -12,11 +12,12 @@
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo)">
         </div>
         <div class="col-md-7">
-            {{todo.title}}
+            <span *ngIf="!todo.isEditMode">{{todo.title}}</span>
+            <input type="text" *ngIf="todo.isEditMode" [(ngModel)]="todo.title" (keydown)="keyDownEdit(todo, $event)">
         </div>
         <div class="col-md-4">
             <input type="button" class="btn btn-danger pull-right" value="Delete">
-            <input type="button" class="btn btn-default pull-right" value="Edit">
+            <input type="button" class="btn btn-default pull-right" (click)="toggleEditMode(todo)" [value]="todo.isEditMode ? 'Save' : 'Edit'">
         </div>
     </div>
 </div>

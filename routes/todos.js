@@ -56,13 +56,6 @@ router.post('/todos', function(req, res, nex) {
 
 // Update Todo
 router.put('/todos/:id', function(req, res, next) {
-    var todo = req.body;
-
-    if (todo.isCompleted) {
-        return res.status(500).json({
-            message: 'Invalid data.'
-        });
-    }
     Todo.findById(req.params.id, function(err, todo) {
         if (err) {
             return res.status(500).json({
@@ -70,6 +63,7 @@ router.put('/todos/:id', function(req, res, next) {
             });
         }
         todo.title = req.body.title;
+        todo.isCompleted = req.body.isCompleted;
         var error = todo.validateSync();
         if (error) {
             return res.status(500).json({
