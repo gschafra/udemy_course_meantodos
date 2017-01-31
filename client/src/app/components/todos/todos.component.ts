@@ -16,15 +16,15 @@ export class TodosComponent implements OnInit {
     this.todos = [];
     Todo.all().then((todos: Todo[]) => {
       this.todos =  todos;
-    })
+    });
   }
 
   addTodo(event, todoText){
-    let todo = new Todo();
+    const todo = new Todo();
     todo.title = todoText.value;
     todo.isCompleted = false;
-    todo.save().then((todo: Todo) => {
-        this.todos.push(todo);
+    todo.save().then((_todo: Todo) => {
+        this.todos.push(_todo);
         todoText.value = '';
     });
   }
@@ -33,10 +33,17 @@ export class TodosComponent implements OnInit {
     todo.isCompleted = !todo.isCompleted;
     todo.save();
   }
-  
-  keyDownEdit(todo, event) {
-    if(event.keyCode == 13) {
+
+  cancelEdit(todo) {
+    todo.isEditMode = false;
+  }
+
+  updateTodoTitle(todo, event) {
+    const keyCode = event.which || event.keyCode;
+    if(keyCode === 13) {
       this.toggleEditMode(todo);
+    } else if (keyCode === 27) {
+      this.cancelEdit(todo);
     }
   }
   toggleEditMode(todo) {
@@ -49,12 +56,18 @@ export class TodosComponent implements OnInit {
     }
   }
 
-  setEditState(todo, state){
+  setEditState(todo, state) {
     if (state) {
       todo.isEditMode = state;
     } else {
       delete todo.isEditMode;
     }
+  }
+
+  deleteTodo(todo) {
+    todo.destroy().then((_todo: Todo) => {
+          console.log(_todo);
+      });
   }
 
 }

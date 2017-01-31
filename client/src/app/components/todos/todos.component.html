@@ -7,16 +7,17 @@
     </div>
 </div>
 <div class="todo-list">
-    <div *ngFor="let todo of todos">
+    <div *ngFor="let todo of todos" class="form-group form-inline">
         <div class="col-md-1">
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo)">
         </div>
         <div class="col-md-7">
             <span *ngIf="!todo.isEditMode">{{todo.title}}</span>
-            <input type="text" *ngIf="todo.isEditMode" [(ngModel)]="todo.title" (keydown)="keyDownEdit(todo, $event)">
+            <input type="text" class="form-control" *ngIf="todo.isEditMode" [(ngModel)]="todo.title" (keydown)="updateTodoTitle(todo, $event)">
+            <input type="button" class="form-control" *ngIf="todo.isEditMode" class="btn btn-warning" value="Cancel" (click)="cancelEdit(todo)">
         </div>
         <div class="col-md-4">
-            <input type="button" class="btn btn-danger pull-right" value="Delete">
+            <input type="button" class="btn btn-danger pull-right" value="Delete" (click)="deleteTodo(todo)">
             <input type="button" class="btn btn-default pull-right" (click)="toggleEditMode(todo)" [value]="todo.isEditMode ? 'Save' : 'Edit'">
         </div>
     </div>
