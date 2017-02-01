@@ -17,7 +17,7 @@
             <input type="button" class="form-control" *ngIf="todo.isEditMode" class="btn btn-warning" value="Cancel" (click)="cancelEdit(todo)">
         </div>
         <div class="col-md-4">
-            <input type="button" class="btn btn-danger pull-right" value="Delete" (click)="deleteTodo(todo)">
+            <input type="button" class="btn btn-danger pull-right" value="Delete" (click)="showConfirmDelete(todo)">
             <input type="button" class="btn btn-default pull-right" (click)="toggleEditMode(todo)" [value]="todo.isEditMode ? 'Save' : 'Edit'">
         </div>
     </div>

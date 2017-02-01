@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ConfirmComponent } from '../confirm/confirm.component';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Todo } from '../../models/todo';
+import { DialogService } from 'ng2-bootstrap-modal';
 
 
 @Component({
@@ -10,13 +12,24 @@ import { Todo } from '../../models/todo';
 export class TodosComponent implements OnInit {
   todos: Todo[];
 
-  constructor() { }
+  constructor(private dialogService: DialogService) { }
 
   ngOnInit() {
     this.todos = [];
     Todo.all().then((todos: Todo[]) => {
       this.todos =  todos;
     });
+  }
+
+  showConfirmDelete(todo) {
+    let disposable = this.dialogService.addDialog(ConfirmComponent, {
+      title: 'Confirmation',
+      message: 'Bla bla comfirm action?'})
+      .subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          this.deleteTodo(todo);
+        }
+      });
   }
 
   addTodo(event, todoText){
@@ -65,8 +78,13 @@ export class TodosComponent implements OnInit {
   }
 
   deleteTodo(todo) {
-    todo.destroy().then((_todo: Todo) => {
-          console.log(_todo);
+    var todos = this.todos;
+    todo.destroy().then((_todo: any) => {
+          for (var i = 0; i < todos.length; i++) {
+            if (todos[i].key() === _todo.data._id) {
+              todos.splice(i, 1);
+            }
+          }
       });
   }
 
