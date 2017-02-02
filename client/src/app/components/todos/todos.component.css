@@ -1,3 +1,8 @@
-input.btn  {
+input.btn {
     margin-right: 5px !important;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #888888;
 }
